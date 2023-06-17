@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "644131641073",
+    "firebase_url": "https://gongguheajo-default-rtdb.firebaseio.com",
+    "project_id": "gongguheajo",
+    "storage_bucket": "gongguheajo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644131641073:android:34d430dba72c3566e13b50",
+        "android_client_info": {
+          "package_name": "com.example.firestore_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaidccoKikHktGje2EsI2JD93NGQqy95w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644131641073:android:51cc9d48ee506597e13b50",
+        "android_client_info": {
+          "package_name": "com.example.gongguhaejo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaidccoKikHktGje2EsI2JD93NGQqy95w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644131641073:android:b475a2d2e65fb733e13b50",
+        "android_client_info": {
+          "package_name": "com.example.gongguheajo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaidccoKikHktGje2EsI2JD93NGQqy95w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644131641073-vcl5eathl6i935u7cgf8gu4l84o58t6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

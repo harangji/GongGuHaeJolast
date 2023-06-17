@@ -1,0 +1,15 @@
+    <resources>
+        <!-- 기타 리소스들 -->
+        <string name="app_name">GongGuHaeJo</string>
+        <string-array name="food_categories">
+            <item>중식</item>
+            <item>한식</item>
+            <item>족발보쌈</item>
+            <item>피자</item>
+            <item>치킨</item>
+            <item>분식</item>
+            <item>일식</item>
+            <item>햄버거</item>
+            <!-- 다른 항목들 추가 -->
+        </string-array>
+    </resources>
