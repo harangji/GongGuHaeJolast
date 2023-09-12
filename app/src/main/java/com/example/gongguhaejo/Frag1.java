@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -59,7 +60,12 @@ public class Frag1 extends Fragment {
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
         databaseReference = database.getReference("GongguList"); //DB 테이블 연결
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        //Query Thoroughfare = databaseReference.orderByChild("receive").equalTo("정문");
+        Query Thoroughfare = databaseReference.orderByChild("receive").startAt("신구").endAt("신구\uf8ff");
+
+
+        //databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Thoroughfare.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳

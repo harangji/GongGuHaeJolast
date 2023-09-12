@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,7 +30,7 @@ public class AddActivity extends AppCompatActivity {
     private EditText et_restname;
     private EditText et_foodname;
     private EditText et_foodprice;
-    private EditText et_receive;
+    private TextView et_receive;
     private Spinner sp_foodcate, sp_person, sp_time;
     private EditText et_food_deliveryprice;
     private Button btn_save;
@@ -94,6 +96,14 @@ public class AddActivity extends AppCompatActivity {
         sp_person.setAdapter(personAdapter);
         sp_time.setAdapter(timeAdapter);
 
+        et_receive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddActivity.this, com.example.gongguhaejo.googlemap.googlemap_addAct.class);
+                startActivityForResult(intent,0);
+            }
+        });
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +111,14 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == RESULT_OK ) {
+            String loca = data.getStringExtra("loca");
+            et_receive.setText(loca);
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

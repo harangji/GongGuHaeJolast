@@ -35,6 +35,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".googlemap.googlemap" />
+        <activity android:name=".googlemap.googlemap_addAct" />
         <activity
             android:name=".AddActivity"
             android:label="Add Activity" />

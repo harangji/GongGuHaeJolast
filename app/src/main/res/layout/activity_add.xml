@@ -202,6 +202,7 @@
                 android:text="" />
 
             <TextView
+                android:id="@+id/et_foodPickuplocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -213,7 +214,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_receive"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -221,8 +222,8 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/text_box_sub"
                 android:ems="10"
-                android:hint="  수령하실 장소를 입력해주세요."
-                android:text="" />
+                android:text="  수령하실 장소를 입력해주세요."
+                />
 
 
 

@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
+import com.example.gongguhaejo.AddActivity;
 import com.example.gongguhaejo.R;
 import com.example.gongguhaejo.SignupActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class googlemap extends AppCompatActivity
+public class googlemap_addAct extends AppCompatActivity
         implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback {
@@ -114,7 +114,9 @@ public class googlemap extends AppCompatActivity
                     if (list.size()==0) {
                         mOptions.snippet("해당되는 주소 정보는 없습니다");
                     } else {
-                        address = list.get(0).getAddressLine(0);
+                        address = list.get(0).getThoroughfare(); //상세구역 동
+                        //address =  list.get(0).getSubLocality()+" "+list.get(0).getThoroughfare();
+                        //address = list.get(0).getAddressLine(0);
                         mOptions.snippet(address);
                         //Toast.makeText(getApplicationContext(), list.get(0).getCountryName(), Toast.LENGTH_LONG).show();
                     }
@@ -160,7 +162,8 @@ public class googlemap extends AppCompatActivity
                             // Logic to handle location object
                             mylatitude = location.getLatitude();
                             mylongitude = location.getLongitude();
-                            LatLng myGPS = new LatLng(mylatitude, mylongitude);      //시작화면 설정, 현재위치 gps로 시작하게 수정해야 함
+                            LatLng myGPS = new LatLng(37.71, 127.024612); //테스트용
+                            //LatLng myGPS = new LatLng(mylatitude, mylongitude);      //시작화면 설정, 현재위치 gps
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myGPS, 17));
 
                             //LatLng testzoom = new LatLng(37.56,127.00); //데스크탑 테스트용
@@ -244,7 +247,7 @@ public class googlemap extends AppCompatActivity
             public void onClick(DialogInterface dialog, int id)
             {
                 Intent outIntent = new Intent(getApplicationContext(),
-                        SignupActivity.class);
+                        AddActivity.class);
                 outIntent.putExtra("loca",address);
                 setResult(RESULT_OK,outIntent);
                 finish();
