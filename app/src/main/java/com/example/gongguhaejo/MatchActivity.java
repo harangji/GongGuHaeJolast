@@ -88,6 +88,7 @@ public class MatchActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 데이터 읽기 실패 시 동작할 로직 작성
                 Log.e(TAG, "Failed to read data.", databaseError.toException());
+                //test
             }
         });
     }
