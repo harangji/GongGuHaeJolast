@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // 툴바 설정
+        // 툴바 설정 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
