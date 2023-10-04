@@ -16,12 +16,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -96,7 +102,7 @@ public class AddActivity extends AppCompatActivity {
         sp_person.setAdapter(personAdapter);
         sp_time.setAdapter(timeAdapter);
 
-        et_receive.setOnClickListener(new View.OnClickListener() {
+        et_receive.setOnClickListener(new View.OnClickListener() {  // 구글맵
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddActivity.this, com.example.gongguhaejo.googlemap.googlemap_addAct.class);
@@ -129,6 +135,10 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void saveGongguList() {
+        // Firebase Authentication을 통해 사용자 아이디를 가져옵니다.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String userId = user.getUid(); // 현재 로그인한 사용자의 고유 아이디를 가져옵니다.
         String restName = et_restname.getText().toString().trim();
         String foodName = et_foodname.getText().toString().trim();
         String receive = et_receive.getText().toString().trim();
@@ -141,6 +151,7 @@ public class AddActivity extends AppCompatActivity {
         int deliveryPrice = Integer.parseInt(et_food_deliveryprice.getText().toString().trim());
 
         GongguList gongguList = new GongguList();
+        gongguList.setUserId(userId); // 사용자 아이디 설정
         gongguList.setRest_name(restName);
         gongguList.setFood_name(foodName);
         gongguList.setFood_cate(foodCate);
@@ -149,13 +160,13 @@ public class AddActivity extends AppCompatActivity {
         gongguList.setRecru_time(recruTime);
         gongguList.setReceive(receive);
         gongguList.setFood_deliveryprice(deliveryPrice);
-
-        String key = databaseReference.child("GongguList").push().getKey();
-        databaseReference.child("GongguList").child(key).setValue(gongguList);
-
+        // Firebase Realtime Database에 저장
+        String key = databaseReference.child("GongguList").push().getKey(); // 새로운 고유 키 생성
+        databaseReference.child("GongguList").child(key).setValue(gongguList); // 데이터베이스에 저장
+        // 리스트에 추가
         gongguListItems.add(gongguList);
 
-
+        // 입력 필드 초기화
         et_restname.setText("");
         et_foodname.setText("");
         et_foodprice.setText("");
@@ -166,5 +177,26 @@ public class AddActivity extends AppCompatActivity {
         Intent intent = new Intent(AddActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+
+        // 글 게시 후 글 삭제 작업 예약
+        schedulePostDeletion(key, recruTime);
+    }
+    private void schedulePostDeletion(String postKey, int recruTime) {
+        // WorkManager를 초기화합니다.
+        WorkManager workManager = WorkManager.getInstance(this);
+
+        // 글 삭제 작업에 필요한 데이터를 설정합니다.
+        Data data = new Data.Builder()
+                .putString("postKey", postKey)
+                .build();
+
+        // 제한 시간 (recruTime) 이 지난 후 한 번만 실행되는 작업을 생성합니다.
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(PostDeletionWorker.class)
+                .setInputData(data)
+                .setInitialDelay(recruTime, TimeUnit.MINUTES) // 지정된 시간 (recruTime) 이후에 작업이 실행됩니다.
+                .build();
+
+        // 작업을 예약합니다.
+        workManager.enqueue(workRequest);
     }
 }

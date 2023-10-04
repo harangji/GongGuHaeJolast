@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 
 public class GongguList implements Serializable {
+    private String userId; // 사용자 아이디
     private String rest_name; // 식당 이름
     private String food_cate; // 음식 카테고리
     private String food_cate_image;// 음식 카테고리 이미지
@@ -20,6 +21,13 @@ public class GongguList implements Serializable {
     public String getId() {
         // ID를 생성하여 반환하는 로직 작성
         return rest_name.replace(" ", "_").toLowerCase();
+    }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getRest_name() {
