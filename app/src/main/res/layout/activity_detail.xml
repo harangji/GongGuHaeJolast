@@ -113,7 +113,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
-        android:text="배달수령지"
+        android:text="배달 수령지"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"/>
