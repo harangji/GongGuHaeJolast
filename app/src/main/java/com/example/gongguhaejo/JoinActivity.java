@@ -41,7 +41,7 @@ public class JoinActivity extends AppCompatActivity {
         EditText etReceive = findViewById(R.id.et_receive);
         EditText etFooddeliveryprice = findViewById(R.id.et_fooddeliveryprice);
 
-        // EditText를 비활성화
+        // EditText를 비활성화합니다.
         etRestname.setText(restName);
         etReceive.setText(receive);
         etFooddeliveryprice.setText(String.valueOf(deliveryPrice));
