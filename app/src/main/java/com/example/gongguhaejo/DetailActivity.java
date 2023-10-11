@@ -97,6 +97,16 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    // "btn_join" 버튼 클릭 시 JoinActivity로 이동
+    Button btnJoin = findViewById(R.id.btn_join);
+        btnJoin.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(DetailActivity.this, JoinActivity.class);
+
+        }
+    });
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
