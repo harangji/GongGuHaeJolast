@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class JoinActivity extends AppCompatActivity {
 
+    private static final String TAG = "JoinActivity";
     private EditText etRestname, etFoodname, etFoodprice, etFooddeliveryprice, etReceive;
     private Button btnJoin;
     private DatabaseReference databaseReference;
@@ -35,7 +39,7 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.gonggu_join);
 
         // UI의 EditText에 받아온 데이터를 설정합니다.
-        EditText etRestname = findViewById(R.id.et_restname);
+        TextView etRestname = findViewById(R.id.et_restname);
         EditText etReceive = findViewById(R.id.et_receive);
         EditText etFooddeliveryprice = findViewById(R.id.et_fooddeliveryprice);
 
@@ -75,13 +79,6 @@ public class JoinActivity extends AppCompatActivity {
                 Log.e(TAG, "Failed to read data.", databaseError.toException());
             }
         });
-
-
-
-        // EditText를 비활성화합니다.
-        etRestname.setText(restName);
-        etReceive.setText(receive);
-        etFooddeliveryprice.setText(String.valueOf(deliveryPrice));
 
         etRestname.setEnabled(false); // 가게 이름 수정 불가능
         etReceive.setEnabled(false); // 배달 수령지 수정 불가능
