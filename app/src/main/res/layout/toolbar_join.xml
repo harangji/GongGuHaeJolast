@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/toolbar_box"
+    android:id="@+id/toolbar"
     app:menu="@menu/menu_toolbar"
     app:title="공구 신청"
     app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"

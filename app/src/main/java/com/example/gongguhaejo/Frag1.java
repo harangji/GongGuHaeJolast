@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +62,7 @@ public class Frag1 extends Fragment {
 
         databaseReference = database.getReference("GongguList"); //DB 테이블 연결
         //Query Thoroughfare = databaseReference.orderByChild("receive").equalTo("정문");
-        Query Thoroughfare = databaseReference.orderByChild("receive").startAt("신구").endAt("신구\uf8ff");
+        //Query Thoroughfare = databaseReference.orderByChild("receive").startAt("신구").endAt("신구\uf8ff");
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

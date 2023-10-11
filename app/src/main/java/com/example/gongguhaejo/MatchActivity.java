@@ -60,7 +60,7 @@ public class MatchActivity extends AppCompatActivity {
 
         // 데이터베이스에서 정보를 읽어오기 위해 DatabaseReference를 생성
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("GongguList").child(item.getId());
+                .child("GongguList").child(item.getKey());
 
         // ValueEventListener를 사용하여 데이터베이스의 변경사항을 읽어옴
         databaseReference.addValueEventListener(new ValueEventListener() {
