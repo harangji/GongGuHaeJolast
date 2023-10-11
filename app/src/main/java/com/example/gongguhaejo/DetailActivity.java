@@ -1,9 +1,11 @@
 package com.example.gongguhaejo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "DetailActivity";
     private ImageView imageView;
     private TextView tv_restname, tv_foodname, tv_foodprice, tv_fooddeliveryprice, tv_receive;
+    private Button btn_join;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +50,14 @@ public class DetailActivity extends AppCompatActivity {
         tv_foodprice = findViewById(R.id.tv_foodprice);
         tv_fooddeliveryprice = findViewById(R.id.tv_fooddeliveryprice);
         tv_receive = findViewById(R.id.tv_receive);
+        btn_join = findViewById((R.id.btn_join));
 
         // 인텐트에서 아이템 정보 받아오기
         GongguList item = (GongguList) getIntent().getSerializableExtra("gongguItem");
 
-        // 아이템 정보를 UI에 표시
-        if (item != null) {
-            // imageView.setImageResource(item.getImageResource()); // 이미지 리소스 설정
-            tv_restname.setText(item.getRest_name()); // 식당 이름
-            tv_foodname.setText(item.getFood_name()); // 구매 메뉴
-            tv_foodprice.setText(String.valueOf(item.getFood_price())); // 구매 메뉴 가격
-            tv_fooddeliveryprice.setText(String.valueOf(item.getFood_deliveryprice())); // 배달비
-            tv_receive.setText(item.getReceive()); // 수령장소
-        } // 나중에 지움
-
-
         // 데이터베이스에서 정보를 읽어오기 위해 DatabaseReference를 생성
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("GongguList").child(item.getKey()); // 오류 발생
+                .child("GongguList").child(item.getKey());
 
         // ValueEventListener를 사용하여 데이터베이스의 변경사항을 읽어옴
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -94,6 +87,14 @@ public class DetailActivity extends AppCompatActivity {
                 Log.e(TAG, "Failed to read data.", databaseError.toException());
             }
         });
+        btn_join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, JoinActivity.class);
+                intent.putExtra("key",item.getKey());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -105,4 +106,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

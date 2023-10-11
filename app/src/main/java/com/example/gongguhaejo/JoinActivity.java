@@ -3,6 +3,7 @@ package com.example.gongguhaejo;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -28,18 +32,51 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join);
-
-        // Intent에서 데이터를 받아옵니다.
-        Intent intent = getIntent();
-        String restName = intent.getStringExtra("restName");
-        String receive = intent.getStringExtra("receive");
-        int deliveryPrice = intent.getIntExtra("deliveryPrice", 0);
+        setContentView(R.layout.gonggu_join);
 
         // UI의 EditText에 받아온 데이터를 설정합니다.
         EditText etRestname = findViewById(R.id.et_restname);
         EditText etReceive = findViewById(R.id.et_receive);
         EditText etFooddeliveryprice = findViewById(R.id.et_fooddeliveryprice);
+
+        // Intent에서 데이터를 받아옵니다.
+        Intent intent = getIntent();
+        String key = intent.getStringExtra("key");
+
+        // 데이터베이스에서 정보를 읽어오기 위해 DatabaseReference를 생성
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("GongguList").child(key);
+
+        // ValueEventListener를 사용하여 데이터베이스의 변경사항을 읽어옴
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 데이터 스냅샷에서 필요한 정보를 가져와서 화면에 표시하는 로직 작성
+                if (dataSnapshot.exists()) {
+                    // 데이터 스냅샷에서 필요한 정보를 가져오는 예시
+                    String restName = dataSnapshot.child("rest_name").getValue(String.class);
+                    String foodName = dataSnapshot.child("food_name").getValue(String.class);
+                    int foodPrice = dataSnapshot.child("food_price").getValue(Integer.class);
+                    int foodDeliveryPrice = dataSnapshot.child("food_deliveryprice").getValue(Integer.class);
+                    String receive = dataSnapshot.child("receive").getValue(String.class);
+
+                    // 가져온 정보를 활용하여 화면에 표시하는 로직 작성
+                    tv_restname.setText(restName);
+                    tv_foodname.setText(foodName);
+                    tv_foodprice.setText(String.valueOf(foodPrice));
+                    tv_fooddeliveryprice.setText(String.valueOf(foodDeliveryPrice));
+                    tv_receive.setText(receive);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 데이터 읽기 실패 시 동작할 로직 작성
+                Log.e(TAG, "Failed to read data.", databaseError.toException());
+            }
+        });
+
+
 
         // EditText를 비활성화합니다.
         etRestname.setText(restName);
@@ -81,12 +118,12 @@ public class JoinActivity extends AppCompatActivity {
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyGonggu();
+                applymatch();
             }
         });
     }
 
-    private void applyGonggu() {
+    private void applymatch() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
