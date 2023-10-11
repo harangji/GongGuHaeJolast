@@ -64,8 +64,8 @@ public class Frag1 extends Fragment {
         Query Thoroughfare = databaseReference.orderByChild("receive").startAt("신구").endAt("신구\uf8ff");
 
 
-        //databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-        Thoroughfare.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        //Thoroughfare.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
