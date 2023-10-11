@@ -29,19 +29,23 @@ import org.w3c.dom.Text;
 public class JoinActivity extends AppCompatActivity {
 
     private static final String TAG = "JoinActivity";
-    private EditText etRestname, etFoodname, etFoodprice, etFooddeliveryprice, etReceive;
-    private Button btnJoin;
+    private EditText etFoodname, etFoodprice;
+    private TextView tvRestname, tvFooddeliveryprice, tvReceive;
+    private Button btnMatch;
     private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gonggu_join);
+        setContentView(R.layout.activity_join);
 
         // UI의 EditText에 받아온 데이터를 설정합니다.
-        TextView etRestname = findViewById(R.id.et_restname);
-        EditText etReceive = findViewById(R.id.et_receive);
-        EditText etFooddeliveryprice = findViewById(R.id.et_fooddeliveryprice);
+        TextView tvRestname = findViewById(R.id.tv_restname);
+        EditText etFoodname = findViewById(R.id.et_foodname);
+        EditText etFoodprice = findViewById(R.id.et_foodprice);
+        TextView tvReceive = findViewById(R.id.tv_receive);
+        TextView tvFooddeliveryprice = findViewById(R.id.tv_fooddeliveryprice);
+        Button btnMatch = findViewById(R.id.btn_match);
 
         // Intent에서 데이터를 받아옵니다.
         Intent intent = getIntent();
@@ -59,17 +63,17 @@ public class JoinActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     // 데이터 스냅샷에서 필요한 정보를 가져오는 예시
                     String restName = dataSnapshot.child("rest_name").getValue(String.class);
-                    String foodName = dataSnapshot.child("food_name").getValue(String.class);
-                    int foodPrice = dataSnapshot.child("food_price").getValue(Integer.class);
+                    //String foodName = dataSnapshot.child("food_name").getValue(String.class);
+                    //int foodPrice = dataSnapshot.child("food_price").getValue(Integer.class);
                     int foodDeliveryPrice = dataSnapshot.child("food_deliveryprice").getValue(Integer.class);
                     String receive = dataSnapshot.child("receive").getValue(String.class);
 
                     // 가져온 정보를 활용하여 화면에 표시하는 로직 작성
-                    tv_restname.setText(restName);
-                    tv_foodname.setText(foodName);
-                    tv_foodprice.setText(String.valueOf(foodPrice));
-                    tv_fooddeliveryprice.setText(String.valueOf(foodDeliveryPrice));
-                    tv_receive.setText(receive);
+                    tvRestname.setText(restName);
+//                    etFoodname.setText(foodName);
+//                    etFoodprice.setText(String.valueOf(foodPrice));
+                    tvReceive.setText(String.valueOf(foodDeliveryPrice));
+                    tvFooddeliveryprice.setText(receive);
                 }
             }
 
@@ -80,14 +84,14 @@ public class JoinActivity extends AppCompatActivity {
             }
         });
 
-        etRestname.setEnabled(false); // 가게 이름 수정 불가능
-        etReceive.setEnabled(false); // 배달 수령지 수정 불가능
-        etFooddeliveryprice.setEnabled(false); // 배달비 수정 불가능
+        tvRestname.setEnabled(false); // 가게 이름 수정 불가능
+        tvReceive.setEnabled(false); // 배달 수령지 수정 불가능
+        tvFooddeliveryprice.setEnabled(false); // 배달비 수정 불가능
 
         // 텍스트 색상을 검정색으로 설정
-        etRestname.setTextColor(Color.BLACK);
-        etReceive.setTextColor(Color.BLACK);
-        etFooddeliveryprice.setTextColor(Color.BLACK);
+        tvRestname.setTextColor(Color.BLACK);
+        tvReceive.setTextColor(Color.BLACK);
+        tvFooddeliveryprice.setTextColor(Color.BLACK);
 
         // 툴바 설정
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -100,19 +104,8 @@ public class JoinActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.back_arrow); // 뒤로가기 버튼 아이콘 설정
         }
 
-        // UI 요소 초기화
-        etRestname = findViewById(R.id.et_restname);
-        etFoodname = findViewById(R.id.et_foodname);
-        etFoodprice = findViewById(R.id.et_foodprice);
-        etFooddeliveryprice = findViewById(R.id.et_fooddeliveryprice);
-        etReceive = findViewById(R.id.et_receive);
-        btnJoin = findViewById(R.id.btn_join);
-
-        // Firebase Realtime Database에 연결
-        databaseReference = FirebaseDatabase.getInstance().getReference("YourDatabaseReference"); // 여기에 Firebase Realtime Database 참조 경로를 넣으세요.
-
-        // "btn_apply" 버튼 클릭 시 정보 저장
-        btnJoin.setOnClickListener(new View.OnClickListener() {
+        // "btnMatch" 버튼 클릭 시 정보 저장
+        btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 applymatch();
@@ -125,11 +118,11 @@ public class JoinActivity extends AppCompatActivity {
 
         if (user != null) {
             String userId = user.getUid();
-            String restName = etRestname.getText().toString().trim();
+            String restName = tvRestname.getText().toString().trim();
             String foodName = etFoodname.getText().toString().trim();
             int foodPrice = Integer.parseInt(etFoodprice.getText().toString().trim());
-            int foodDeliveryPrice = Integer.parseInt(etFooddeliveryprice.getText().toString().trim());
-            String receive = etReceive.getText().toString().trim();
+            int foodDeliveryPrice = Integer.parseInt(tvFooddeliveryprice.getText().toString().trim());
+            String receive = tvReceive.getText().toString().trim();
 
             // GongguList 객체 생성
             GongguList gongguList = new GongguList();
@@ -145,11 +138,11 @@ public class JoinActivity extends AppCompatActivity {
             gongguRef.setValue(gongguList);
 
             // 입력 필드 초기화
-            etRestname.setText("");
+            tvRestname.setText("");
             etFoodname.setText("");
             etFoodprice.setText("");
-            etFooddeliveryprice.setText("");
-            etReceive.setText("");
+            tvFooddeliveryprice.setText("");
+            tvReceive.setText("");
 
             Toast.makeText(JoinActivity.this, "공구 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }

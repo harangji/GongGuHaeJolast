@@ -30,8 +30,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_restname"
+            <TextView
+                android:id="@+id/tv_restname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -39,7 +39,8 @@
                 android:background="@drawable/text_box_sub"
                 android:ems="10"
                 android:hint="  주문하실 가게 이름을 입력해주세요."
-                android:text="" />
+                android:text=""
+                />
 
 
 
@@ -123,8 +124,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_fooddeliveryprice"
+            <TextView
+                android:id="@+id/tv_fooddeliveryprice"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -147,8 +148,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_receive"
+            <TextView
+                android:id="@+id/tv_receive"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -161,7 +162,7 @@
 
 
             <Button
-                android:id="@+id/btn_join"
+                android:id="@+id/btn_match"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="20dp"
