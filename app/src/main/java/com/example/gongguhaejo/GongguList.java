@@ -15,13 +15,18 @@ public class GongguList implements Serializable {
     private int food_deliveryprice; // 배달비
     private String location; // 사용자 위치
     private String receive; // 수령 장소
+    private String key;
 
     public GongguList() {}
 
-    public String getId() {
+    public String getKey() {
         // ID를 생성하여 반환하는 로직 작성
-        return rest_name.replace(" ", "_").toLowerCase();
+        return key;
     }
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public String getUserId() {
         return userId;
     }

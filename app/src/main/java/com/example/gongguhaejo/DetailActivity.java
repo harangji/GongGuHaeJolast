@@ -1,13 +1,12 @@
 package com.example.gongguhaejo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -56,15 +55,16 @@ public class DetailActivity extends AppCompatActivity {
         if (item != null) {
             // imageView.setImageResource(item.getImageResource()); // 이미지 리소스 설정
             tv_restname.setText(item.getRest_name()); // 식당 이름
-            tv_foodname.setText(    item.getFood_name()); // 구매 메뉴
+            tv_foodname.setText(item.getFood_name()); // 구매 메뉴
             tv_foodprice.setText(String.valueOf(item.getFood_price())); // 구매 메뉴 가격
             tv_fooddeliveryprice.setText(String.valueOf(item.getFood_deliveryprice())); // 배달비
             tv_receive.setText(item.getReceive()); // 수령장소
-        }
+        } // 나중에 지움
+
 
         // 데이터베이스에서 정보를 읽어오기 위해 DatabaseReference를 생성
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("GongguList").child(item.getId());
+                .child("GongguList").child(item.getKey()); // 오류 발생
 
         // ValueEventListener를 사용하여 데이터베이스의 변경사항을 읽어옴
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -92,24 +92,6 @@ public class DetailActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 데이터 읽기 실패 시 동작할 로직 작성
                 Log.e(TAG, "Failed to read data.", databaseError.toException());
-            }
-        });
-        // "btn_match" 버튼 클릭 시 JoinActivity로 이동
-        Button btnMatch = findViewById(R.id.btn_match);
-        btnMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // JoinActivity로 전달할 데이터를 Intent에 담습니다.
-                Intent intent = new Intent(DetailActivity.this, JoinActivity.class);
-
-                // 가게 이름과 배달 수령지 정보를 전달합니다.
-                intent.putExtra("restName", tv_restname.getText().toString());
-                intent.putExtra("receive", tv_receive.getText().toString());
-                // 배달비 정보를 그대로 전달
-                int deliveryPrice = Integer.parseInt(tv_fooddeliveryprice.getText().toString());
-                intent.putExtra("deliveryPrice", deliveryPrice);
-
-                startActivity(intent);
             }
         });
     }

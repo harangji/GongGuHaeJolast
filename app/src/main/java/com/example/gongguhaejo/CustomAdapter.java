@@ -2,6 +2,7 @@ package com.example.gongguhaejo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 GongguList gongguList = arrayList.get(position);
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("gongguItem", gongguList);
+                //intent.putExtra("gongguKey", arrayList.get(position).getKey());
                 context.startActivity(intent);
             }
         });

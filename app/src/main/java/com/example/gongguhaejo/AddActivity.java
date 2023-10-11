@@ -150,6 +150,7 @@ public class AddActivity extends AppCompatActivity {
         int recruTime = Integer.parseInt(recruTimeString.replaceAll("[^0-9]", ""));
         int deliveryPrice = Integer.parseInt(et_food_deliveryprice.getText().toString().trim());
 
+
         GongguList gongguList = new GongguList();
         gongguList.setUserId(userId); // 사용자 아이디 설정
         gongguList.setRest_name(restName);
@@ -162,6 +163,7 @@ public class AddActivity extends AppCompatActivity {
         gongguList.setFood_deliveryprice(deliveryPrice);
         // Firebase Realtime Database에 저장
         String key = databaseReference.child("GongguList").push().getKey(); // 새로운 고유 키 생성
+        gongguList.setKey(key);
         databaseReference.child("GongguList").child(key).setValue(gongguList); // 데이터베이스에 저장
         // 리스트에 추가
         gongguListItems.add(gongguList);
