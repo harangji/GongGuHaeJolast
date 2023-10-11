@@ -128,12 +128,12 @@
         android:background="@drawable/text_box_sub"
         android:ems="10"/>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_match"
+        android:id="@+id/btn_join"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:background="@drawable/button_box"
-        android:text="공구 진행"
+        android:text="공구 신청"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
